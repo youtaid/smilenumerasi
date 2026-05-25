@@ -226,16 +226,16 @@ const App: React.FC = () => {
     }
   };
 
-  // Mobile menu nav items
+  // Mobile menu nav items — mirrors Sidebar role-based visibility
   const mobileNavItems = [
-    { id: AppView.DASHBOARD, label: 'Beranda & Analitik' },
-    { id: AppView.SMILE_PROGRAM, label: 'Pelatihan SMILE' },
-    { id: AppView.DESIGN_THINKING, label: 'Lab Design Thinking' },
-    { id: AppView.LESSON_PLANNER, label: 'Studio Modul Ajar' },
-    { id: AppView.CONTENT_STUDIO, label: 'Studio Soal & Materi' },
-    { id: AppView.ASSESSMENT, label: 'Pusat Asesmen' },
-    { id: AppView.COLLABORATION, label: 'Kolaborasi 360°' },
-    { id: AppView.SELF_DEV, label: 'Jalur Kompetensi' },
+    { id: AppView.DASHBOARD, label: 'Beranda & Analitik', roles: [UserRole.GURU, UserRole.FASILITATOR, UserRole.ADMIN, UserRole.KEPALA_SEKOLAH] },
+    { id: AppView.SMILE_PROGRAM, label: 'Pelatihan SMILE', roles: [UserRole.GURU, UserRole.FASILITATOR, UserRole.ADMIN] },
+    { id: AppView.DESIGN_THINKING, label: 'Lab Design Thinking', roles: [UserRole.GURU, UserRole.FASILITATOR] },
+    { id: AppView.LESSON_PLANNER, label: 'Studio Modul Ajar', roles: [UserRole.GURU, UserRole.FASILITATOR] },
+    { id: AppView.CONTENT_STUDIO, label: 'Studio Soal & Materi', roles: [UserRole.GURU] },
+    { id: AppView.ASSESSMENT, label: 'Pusat Asesmen', roles: [UserRole.GURU, UserRole.FASILITATOR, UserRole.PENELITI] },
+    { id: AppView.COLLABORATION, label: 'Kolaborasi 360°', roles: [UserRole.GURU, UserRole.FASILITATOR, UserRole.KEPALA_SEKOLAH] },
+    { id: AppView.SELF_DEV, label: 'Jalur Kompetensi', roles: [UserRole.GURU] },
   ];
 
   // 0. Loading State
@@ -306,7 +306,7 @@ const App: React.FC = () => {
             )}
 
             <div className="flex flex-col space-y-1">
-              {mobileNavItems.map(item => (
+              {mobileNavItems.filter(item => item.roles.includes(user.role)).map(item => (
                 <button
                   key={item.id}
                   onClick={() => handleChangeView(item.id)}

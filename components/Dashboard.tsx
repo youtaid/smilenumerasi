@@ -62,6 +62,19 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
       }
   };
 
+  const getNextLevel = (level: MasteryLevel): string => {
+      const order = [MasteryLevel.EXPLORER, MasteryLevel.INTEGRATOR, MasteryLevel.DESIGNER, MasteryLevel.FACILITATOR, MasteryLevel.MENTOR];
+      const idx = order.indexOf(level);
+      return idx < order.length - 1 ? order[idx + 1] : 'Mentor (Puncak)';
+  };
+
+  const getPerformanceLabel = (score: number): string => {
+      if (score >= 90) return 'Performa Sangat Baik';
+      if (score >= 75) return 'Performa Baik';
+      if (score >= 50) return 'Performa Cukup';
+      return 'Perlu Ditingkatkan';
+  };
+
   return (
     <div className="space-y-6 animate-fade-in pb-10">
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
@@ -71,7 +84,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
              <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getLevelColor(profile.level)}`}>
                 {profile.level}
              </span>
-             <span>• Menuju Level Berikutnya: Integrator</span>
+             <span>• Menuju Level Berikutnya: {getNextLevel(profile.level)}</span>
           </p>
         </div>
         
@@ -92,7 +105,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
             </div>
             <div>
                 <div className="text-xs text-slate-400 font-bold uppercase tracking-wider">Overall Mastery</div>
-                <div className="text-sm font-bold text-[#112967]">Performa Cukup</div>
+                <div className="text-sm font-bold text-[#112967]">{getPerformanceLabel(profile.overallScore)}</div>
             </div>
         </div>
       </header>
