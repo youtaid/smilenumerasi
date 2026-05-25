@@ -204,7 +204,7 @@ const App: React.FC = () => {
   const renderContent = () => {
     switch (currentView) {
       case AppView.DASHBOARD:
-        return <Dashboard />;
+        return <Dashboard onNavigate={handleChangeView} />;
       case AppView.SMILE_PROGRAM:
         return <SmileProgram onAwardXP={handleAwardXP} />;
       case AppView.DESIGN_THINKING:
@@ -218,7 +218,7 @@ const App: React.FC = () => {
       case AppView.COLLABORATION:
         return <CollaborationHub onAwardXP={handleAwardXP} />;
       case AppView.SELF_DEV:
-        return <SelfDevelopment />;
+        return <SelfDevelopment onAwardXP={handleAwardXP} />;
       case AppView.CONTENT_MANAGER:
         return <ContentManager />;
       default:

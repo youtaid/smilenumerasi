@@ -9,10 +9,14 @@ import {
 } from 'lucide-react';
 import { getPersonalizedRecommendations } from '../services/geminiService';
 import { getNextBestAction, INITIAL_MASTERY_PROFILE } from '../services/masteryService';
-import { MasteryProfile, NextBestAction, MasteryLevel } from '../types';
+import { MasteryProfile, NextBestAction, MasteryLevel, AppView } from '../types';
 import MarkdownRenderer from './MarkdownRenderer';
 
-const Dashboard: React.FC = () => {
+interface DashboardProps {
+  onNavigate?: (view: AppView) => void;
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ onNavigate }) => {
   const [recommendations, setRecommendations] = useState<string>('');
   const [isLoadingRecs, setIsLoadingRecs] = useState(true);
   const [profile, setProfile] = useState<MasteryProfile>(INITIAL_MASTERY_PROFILE);
@@ -166,7 +170,10 @@ const Dashboard: React.FC = () => {
                         </p>
                         
                         <div className="flex gap-3">
-                            <button className="bg-white text-[#112967] px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-50 transition-colors flex items-center gap-2 shadow-lg">
+                            <button
+                              onClick={() => nba?.targetView && onNavigate && onNavigate(nba.targetView as AppView)}
+                              className="bg-white text-[#112967] px-5 py-2.5 rounded-xl font-bold text-sm hover:bg-blue-50 transition-colors flex items-center gap-2 shadow-lg"
+                            >
                                 {nba?.actionLabel} <ArrowRight size={16} />
                             </button>
                             <button className="px-5 py-2.5 rounded-xl font-bold text-sm text-white hover:bg-white/10 transition-colors border border-white/20">

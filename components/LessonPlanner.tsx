@@ -194,8 +194,7 @@ const LessonPlanner: React.FC<LessonPlannerProps> = ({ onNavigateToContent, onAw
         await generateLKPD(formData, lkpdForm, generatedContent, (chunk) => {
             setLkpdContent(prev => prev + chunk);
         });
-        // Award XP on LKPD success (optional small bonus)
-        // if (onAwardXP) onAwardXP(GamificationAction.GENERATE_QUIZ); // Reusing Quiz action for now or create new
+        if (onAwardXP) onAwardXP(GamificationAction.GENERATE_LKPD);
     } catch (error) {
         alert('Terjadi kesalahan saat membuat LKPD.');
     } finally {

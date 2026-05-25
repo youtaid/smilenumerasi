@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Lock, Star, Trophy, Target, BookOpen, CheckCircle, MapPin, Gamepad2, Award, UserCheck, Sparkles, Shield } from 'lucide-react';
-import { LearningPathNode, Badge, TeacherPersonaResult, LoadingState, MasteryLevel } from '../types';
+import { LearningPathNode, Badge, TeacherPersonaResult, LoadingState, MasteryLevel, GamificationAction } from '../types';
 import { analyzeTeacherPersona } from '../services/geminiService';
 
 const MASTERY_GATES = [
@@ -37,7 +37,11 @@ const MASTERY_GATES = [
   }
 ];
 
-const SelfDevelopment: React.FC = () => {
+interface SelfDevelopmentProps {
+  onAwardXP?: (action: GamificationAction) => void;
+}
+
+const SelfDevelopment: React.FC<SelfDevelopmentProps> = ({ onAwardXP }) => {
   // Persona State
   const [personaForm, setPersonaForm] = useState({
     experience: '1-5 tahun',
@@ -60,6 +64,7 @@ const SelfDevelopment: React.FC = () => {
       );
       setPersonaResult(result);
       setPersonaLoading(LoadingState.SUCCESS);
+      if (onAwardXP) onAwardXP(GamificationAction.PERSONA_CHECK);
     } catch (e) {
       setPersonaLoading(LoadingState.ERROR);
     }
