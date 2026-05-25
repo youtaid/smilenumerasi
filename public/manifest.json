@@ -1,0 +1,17 @@
+{
+  "name": "SMILE Platform",
+  "short_name": "SMILE",
+  "description": "Smart & Innovative Learning Environment untuk Guru Indonesia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f4f8",
+  "theme_color": "#112967",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
